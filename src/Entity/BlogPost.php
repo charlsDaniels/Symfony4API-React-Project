@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")7
+ * @ApiResource()
  */
 class BlogPost
 {
