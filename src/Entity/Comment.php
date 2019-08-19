@@ -6,10 +6,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BlogPostRepository")7
  * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class BlogPost
+class Comment
 {
     /**
      * @ORM\Id()
@@ -19,9 +19,9 @@ class BlogPost
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $title;
+    private $content;
 
     /**
      * @ORM\Column(type="datetime")
@@ -29,34 +29,24 @@ class BlogPost
     private $published;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $text;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $slug;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getContent(): ?string
     {
-        return $this->title;
+        return $this->content;
     }
 
-    public function setTitle(string $title): self
+    public function setContent(string $content): self
     {
-        $this->title = $title;
+        $this->content = $content;
 
         return $this;
     }
@@ -73,30 +63,6 @@ class BlogPost
         return $this;
     }
 
-    public function getText(): ?string
-    {
-        return $this->text;
-    }
-
-    public function setText(string $text): self
-    {
-        $this->text = $text;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     /**
      * @return User
      */
@@ -108,11 +74,9 @@ class BlogPost
     /**
      * @param User $author
      */
-    public function setAuthor(User $author): self
+    public function setAuthor($author): void
     {
         $this->author = $author;
-
-        return $this;
     }
 
 }
